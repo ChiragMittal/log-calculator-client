@@ -26,7 +26,7 @@ const App = () => {
   //https://log-calculator.herokuapp.com/
 
   window.onbeforeunload = function () {
-	socket.emit('disconnect');
+	socket.emit('clear logs');
    }
   socket.on('fromServer', response => {
     setLog(response);
@@ -53,7 +53,7 @@ const App = () => {
 	const calculate = () => {
 		try {
 			let res = `${ evaluate(result) }`;
-      res = res === 'undefined' ? '' : res;
+     // res = res === 'undefined' ? '' : res;
       if(res !== '' )
         socket.emit('fromClient', `${ result }=${ res }`);
 			setResult(res);
@@ -62,9 +62,6 @@ const App = () => {
 			setResult('Invalid Expression')
 		}
 	};
-
-	
-	//socket.emit('end')
 
 	const reset = () => {
 		setResult('');
