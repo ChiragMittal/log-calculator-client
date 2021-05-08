@@ -5,78 +5,96 @@ import LogComponent from './components/LogComponent';
 import socketIOClient from 'socket.io-client';
 import { evaluate } from 'mathjs';
 
-const App = () => {
-  const [result, setResult] = useState('');
-  const [log, setLog] = useState('');
-  const socket = socketIOClient('http://localhost:5000', {autoConnect: true});
-  console.log(socket)
-  setTimeout(()=>{
-	
-			//console.log("conncetd "+socket.connected)
-			console.log(socket.io.lastPing)
+var socket = socketIOClient('http://localhost:5000', {autoConnect: true})
+   
+	  socket.emit('connection', `I am client`);
+	  //window.addEventListener("beforeunload", socket.emit('clear logs'));
+	  window.onbeforeunload = function () {
+		socket.emit('clear logs');
+	   }
 
-			if(socket.connected === false && socket.io.readyState.includes('clos')){
-				socket.emit('clear logs')
-			}
+class App extends React.Component {
+ 
+constructor(props){
+	
+	super(props);
+   
+	this.state = {
+		result:'',
+		log:'',
+	  };
+
+	  socket.on('fromServer', response => {
+		this.setState({log:response})
+	  });
+
+	   
+	  
+}
+  
+  //console.log(socket)
+//   setTimeout(()=>{
+	
+// 			//console.log("conncetd "+socket.connected)
+// 			console.log(socket.io.lastPing)
+
+// 			if(socket.connected === false && socket.io.readyState.includes('clos')){
+// 				socket.emit('clear logs')
+// 			}
 			
 		
 
-  },200)
+//   },200)
   
   //https://log-calculator.herokuapp.com/
 
-  window.onbeforeunload = function () {
-	socket.emit('clear logs');
-   }
-  socket.on('fromServer', response => {
-    setLog(response);
-  });
-  socket.emit('connection', `I am client`);
+  
  
 
-	const onClick = (value) => {
+	 click = (value) => {
 		switch(value) {
 			case '=':
-				calculate();
+				this.calculate();
 				break;
 			case 'AC':
-				reset();
+				this.reset();
 				break;
 			case 'Back':
-				backspace();
+				this.backspace();
 				break;
 			default:
-				setResult(`${ result }${ value }`);
+				this.setState({result:`${ this.state.result }${ value }`});
 		}
 	};
 
-	const calculate = () => {
+	 calculate = () => {
 		try {
-			let res = `${ evaluate(result) }`;
-     // res = res === 'undefined' ? '' : res;
+			let res = `${ evaluate(this.state.result) }`;
       if(res !== '' )
-        socket.emit('fromClient', `${ result }=${ res }`);
-			setResult(res);
+        socket.emit('fromClient', `${ this.state.result }=${ res }`);
+			this.setState({result:res})
 			
 		} catch (e) {
-			setResult('Invalid Expression')
+			this.setState({result:'Invalid Expression'})
 		}
 	};
 
-	const reset = () => {
-		setResult('');
+	 reset = () => {
+		this.setState({result:''})
 	};
 
-	const backspace = () => {
-    setResult(result.slice(0, -1));
+	 backspace = () => {
+	this.setState({result:this.state.result.slice(0, -1)})
 	};
 
+render() {
 	return (
 		<div className='app'>
-			<CalculatorComponent value={ result } onClick={ onClick } />
-      <LogComponent value={ log }/>
+			<CalculatorComponent value={ this.state.result } onClick={ this.click.bind(this) } />
+      <LogComponent value={ this.state.log }/>
 		</div>
   );
+	}	
 }
 
 export default App;
