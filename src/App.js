@@ -6,9 +6,8 @@ import socketIOClient from 'socket.io-client';
 import { evaluate } from 'mathjs';
 
 var socket = socketIOClient('https://log-calculator.herokuapp.com/', {autoConnect: true})
-
-	  socket.on('connection', `I am client`);
-	
+   
+	  socket.emit('connection', `I am client`);
 	  //window.addEventListener("beforeunload", socket.emit('clear logs'));
 	  window.onbeforeunload = function () {
 		// socket.emit('clear logs');
