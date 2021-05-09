@@ -5,7 +5,7 @@ import LogComponent from './components/LogComponent';
 import socketIOClient from 'socket.io-client';
 import { evaluate } from 'mathjs';
 
-var socket = socketIOClient('http://localhost:5000/', {autoConnect: true})
+var socket = socketIOClient('https://log-calculator.herokuapp.com/', {autoConnect: true})
    
 	  socket.emit('connection', `I am client`);
 	  window.onbeforeunload = function () {
