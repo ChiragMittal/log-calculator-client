@@ -87,6 +87,11 @@ button:hover {
   margin: 0 10px 4px 10px;
   padding: 0 5px;
   border-radius: 3px;
-  background-color: #79d279;
+  border: 1px solid #bbb;
+}
+
+.logs{
+  justify-content: center;
+    display: flex;
 }
 

@@ -5,12 +5,10 @@ import LogComponent from './components/LogComponent';
 import socketIOClient from 'socket.io-client';
 import { evaluate } from 'mathjs';
 
-var socket = socketIOClient('https://log-calculator.herokuapp.com/', {autoConnect: true})
+var socket = socketIOClient('http://localhost:5000/', {autoConnect: true})
    
 	  socket.emit('connection', `I am client`);
-	  //window.addEventListener("beforeunload", socket.emit('clear logs'));
 	  window.onbeforeunload = function () {
-		// socket.emit('clear logs');
 		socket.on("disconnect", () => {
 
 		  });
@@ -30,8 +28,6 @@ constructor(props){
 	  socket.on('fromServer', response => {
 		this.setState({log:response})
 	  });
-
-	   
 	  
 }
 
@@ -41,7 +37,7 @@ constructor(props){
 			case '=':
 				this.calculate();
 				break;
-			case 'AC':
+			case 'all_clear':
 				this.reset();
 				break;
 			case 'Back':

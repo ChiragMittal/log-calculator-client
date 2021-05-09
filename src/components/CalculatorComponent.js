@@ -23,7 +23,7 @@ const CalculatorComponent = (props) => {
     <button type="button" value="0" onClick={ e => props.onClick(e.target.value) }>0</button>
     
     <button type="button" class="decimal" value="." onClick={ e => props.onClick(e.target.value) }>.</button>
-    <button type="button" class="operator" value="AC" onClick={ e => props.onClick(e.target.value) }>AC</button>
+    <button type="button" class="operator" value="all_clear" onClick={ e => props.onClick(e.target.value) }>AC</button>
     <button type="button" class="equal-sign operator" value="=" onClick={ e => props.onClick(e.target.value) }>=</button>
     <button value='Back' className='operator' onClick={ e => props.onClick(e.target.value) }>Back</button>
 
