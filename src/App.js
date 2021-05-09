@@ -5,12 +5,16 @@ import LogComponent from './components/LogComponent';
 import socketIOClient from 'socket.io-client';
 import { evaluate } from 'mathjs';
 
-var socket = socketIOClient('http://localhost:5000', {autoConnect: true})
-   
-	  socket.emit('connection', `I am client`);
+var socket = socketIOClient('https://log-calculator.herokuapp.com/', {autoConnect: true})
+
+	  socket.on('connection', `I am client`);
+	
 	  //window.addEventListener("beforeunload", socket.emit('clear logs'));
 	  window.onbeforeunload = function () {
-		socket.emit('clear logs');
+		// socket.emit('clear logs');
+		socket.on("disconnect", () => {
+
+		  });
 	   }
 
 class App extends React.Component {
@@ -31,25 +35,7 @@ constructor(props){
 	   
 	  
 }
-  
-  //console.log(socket)
-//   setTimeout(()=>{
-	
-// 			//console.log("conncetd "+socket.connected)
-// 			console.log(socket.io.lastPing)
 
-// 			if(socket.connected === false && socket.io.readyState.includes('clos')){
-// 				socket.emit('clear logs')
-// 			}
-			
-		
-
-//   },200)
-  
-  //https://log-calculator.herokuapp.com/
-
-  
- 
 
 	 click = (value) => {
 		switch(value) {
