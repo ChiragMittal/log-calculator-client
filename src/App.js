@@ -5,9 +5,9 @@ import LogComponent from './components/LogComponent';
 import socketIOClient from 'socket.io-client';
 import { evaluate } from 'mathjs';
 
-var socket = socketIOClient('http://localhost:5000/', {autoConnect: true})
+var socket = socketIOClient('https://log-calculator.herokuapp.com/', {autoConnect: true})
    
-	  socket.emit('connection', `I am client`);
+	  socket.emit('connection', `Hello`);
 	  window.onbeforeunload = function () {
 		socket.on("disconnect", () => {
 
@@ -34,11 +34,11 @@ constructor(props){
 
 	 click = (value) => {
 		switch(value) {
-			case '=':
-				this.calculate();
-				break;
 			case 'all_clear':
 				this.reset();
+				break;
+			case '=':
+				this.calculate();
 				break;
 			case 'Back':
 				this.backspace();
@@ -72,7 +72,7 @@ render() {
 	return (
 		<div className='app'>
 			<CalculatorComponent value={ this.state.result } onClick={ this.click.bind(this) } />
-      <LogComponent value={ this.state.log }/>
+      		<LogComponent value={ this.state.log }/>
 		</div>
   );
 	}	
