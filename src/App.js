@@ -72,7 +72,7 @@ render() {
 	return (
 		<div className='app'>
 			<CalculatorComponent value={ this.state.result } onClick={ this.click.bind(this) } />
-      		<LogComponent value={ this.state.log }/>
+      		<LogComponent value={ this.state.log }/> 
 		</div>
   );
 	}	
