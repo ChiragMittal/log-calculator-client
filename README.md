@@ -1,10 +1,11 @@
 # Log Calculator
 The frontend applcation of the log calcultor implemented by React.
 
-Steps:
+## Run locally
+```
+$cd log-calculator-client
+$npm install
+$npm start
+```
 
-git clone github repo
-cd log-calculator-client
-npm install
-npm start
 
