@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import './app.css';
 import CalculatorComponent from './components/CalculatorComponent';
 import LogComponent from './components/LogComponent';
 import socketIOClient from 'socket.io-client';
